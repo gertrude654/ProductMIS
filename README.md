@@ -115,5 +115,3 @@ The project includes the implementation of product and category management, supp
 3. Build the project using Maven or Gradle.
 4. Run the application using your IDE or by executing the packaged JAR.
 
-*(Add any additional deployment notes or instructions as needed.)*
-
