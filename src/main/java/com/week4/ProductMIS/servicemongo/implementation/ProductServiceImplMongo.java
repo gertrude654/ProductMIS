@@ -1,6 +1,6 @@
 package com.week4.ProductMIS.servicemongo.implementation;
 
-import com.week4.ProductMIS.mongoModels.Product;
+import com.week4.ProductMIS.mongoModels.ProductMongo;
 import com.week4.ProductMIS.repository.ProductRepoMongo;
 import com.week4.ProductMIS.servicemongo.ProductServiceMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +22,30 @@ public class ProductServiceImplMongo implements ProductServiceMongo {
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public ProductMongo createProduct(ProductMongo product) {
         return repo.save(product);
     }
 
     @Override
-    public Product getProduct(String productId) {
+    public ProductMongo getProduct(String productId) {
         return repo.findById(productId).orElse(null);
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<ProductMongo> getAllProducts() {
         return repo.findAll();
     }
 
     @Override
-    public void updateProduct(Product product) {
+    public void updateProduct(ProductMongo product) {
          repo.save(product);
     }
 
     @Override
     public boolean deleteProduct(String ProductId) {
-        Optional<Product> deletedProduct = repo.findById(ProductId);
+        Optional<ProductMongo> deletedProduct = repo.findById(ProductId);
         if (deletedProduct.isPresent()) {
-            Product product = deletedProduct.get();
+            ProductMongo product = deletedProduct.get();
             repo.delete(product);
             return true;
         }

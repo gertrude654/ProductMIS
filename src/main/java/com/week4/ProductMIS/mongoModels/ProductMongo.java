@@ -6,20 +6,20 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 
 @Profile("dev")
-@Document(collection = "categories")
-public class Category {
+@Document(collection = "products")
+public class ProductMongo {
+
     @Id
     private String id;
-    private String name;
+    private String productCode;
+    private String description;
+    private int quantity;
     @DBRef
-    private List<Product> products;
+    private CategoryMongo category;
 }

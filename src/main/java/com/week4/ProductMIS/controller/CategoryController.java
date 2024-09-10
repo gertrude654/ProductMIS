@@ -112,8 +112,8 @@ public class CategoryController {
             return ResponseEntity.notFound().build();
         }
 
-        Category.setName(updatedCategory.getName());
-        Category.setDescription(updatedCategory.getDescription());
+        Category.setCategoryCode(updatedCategory.getCategoryCode());
+      //  Category.(updatedCategory.getDescription());
 
         CategoryService.updateCategory(Category);
 

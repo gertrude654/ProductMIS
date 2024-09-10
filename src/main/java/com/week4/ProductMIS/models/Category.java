@@ -13,18 +13,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Category  implements Comparable<Category> {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String description;
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    private String categoryCode;
+//    @OneToMany(mappedBy = "category")
+//    private List<Product> products;
 
-    @Override
-    public int compareTo(Category other) {
-        return Integer.compare(this.id, other.id);
-    }
+
 }

@@ -10,13 +10,18 @@ import java.math.BigDecimal;
 @Data
 
 @Entity
+@Table(name = "products",
+        indexes = {
+                @Index(name = "idx_product_id", columnList = "id"),
+                @Index(name = "idx_product_category", columnList = "category_id")
+        })
 public class Product implements Comparable<Product>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String productCode;
     private String name;
-    private String description;
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -29,3 +34,4 @@ public class Product implements Comparable<Product>{
     }
 
 }
+

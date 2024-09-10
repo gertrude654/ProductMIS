@@ -1,6 +1,6 @@
 package com.week4.ProductMIS.servicemongo.implementation;
 
-import com.week4.ProductMIS.mongoModels.Category;
+import com.week4.ProductMIS.mongoModels.CategoryMongo;
 import com.week4.ProductMIS.repository.CategoryRepoMongo;
 import com.week4.ProductMIS.servicemongo.CategoryServiceMongo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +22,30 @@ public class CategoryServiceImplMongo implements CategoryServiceMongo {
     }
 
     @Override
-    public Category getCategory(String categoryId) {
+    public CategoryMongo getCategory(String categoryId) {
         return null;
     }
 
     @Override
-    public List<Category> getAllCategories() {
+    public List<CategoryMongo> getAllCategories() {
         return repo.findAll();
     }
 
     @Override
-    public Category createCategory(Category category) {
+    public CategoryMongo createCategory(CategoryMongo category) {
         return repo.save(category);
     }
 
     @Override
-    public void updateCategory(Category category) {
+    public void updateCategory(CategoryMongo category) {
         repo.save(category);
     }
 
     @Override
     public boolean deleteCategory(String categoryId) {
-        Optional<Category> deletedCategory = repo.findById(categoryId);
+        Optional<CategoryMongo> deletedCategory = repo.findById(categoryId);
         if (deletedCategory.isPresent()) {
-            Category category = deletedCategory.get();
+            CategoryMongo category = deletedCategory.get();
             repo.delete(category);
             return true;
         }

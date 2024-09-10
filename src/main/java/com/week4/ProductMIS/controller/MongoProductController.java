@@ -1,6 +1,6 @@
 package com.week4.ProductMIS.controller;
 
-import com.week4.ProductMIS.mongoModels.Product;
+import com.week4.ProductMIS.mongoModels.ProductMongo;
 import com.week4.ProductMIS.servicemongo.ProductServiceMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -20,15 +20,15 @@ public class MongoProductController {
 
     // Get all products
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+    public ResponseEntity<List<ProductMongo>> getAllProducts() {
+        List<ProductMongo> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     // Get a specific product by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") String productId) {
-        Product product = productService.getProduct(productId);
+    public ResponseEntity<ProductMongo> getProduct(@PathVariable("id") String productId) {
+        ProductMongo product = productService.getProduct(productId);
         return product != null
                 ? new ResponseEntity<>(product, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -36,16 +36,16 @@ public class MongoProductController {
 
     // Create a new product
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
+    public ResponseEntity<ProductMongo> createProduct(@RequestBody ProductMongo product) {
+        ProductMongo createdProduct = productService.createProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     // Update an existing product
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(
+    public ResponseEntity<ProductMongo> updateProduct(
             @PathVariable("id") String productId,
-            @RequestBody Product product) {
+            @RequestBody ProductMongo product) {
         product.setId(productId); // Ensure the ID is set for update
         productService.updateProduct(product);
         return new ResponseEntity<>(product, HttpStatus.OK);

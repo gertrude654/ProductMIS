@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private final ProductService productService;
-    private final PagedResourcesAssembler<Product> pagedResourcesAssembler;
+    //private final PagedResourcesAssembler<Product> pagedResourcesAssembler;
 
     @Autowired
-    public ProductController(ProductService productService, PagedResourcesAssembler<Product> pagedResourcesAssembler) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.pagedResourcesAssembler = pagedResourcesAssembler;
+        //this.pagedResourcesAssembler = pagedResourcesAssembler;
     }
     @PostMapping("/add")
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO product) {
@@ -84,7 +84,6 @@ public class ProductController {
 
         product.setName(updatedProduct.getName());
         product.setPrice(updatedProduct.getPrice());
-        product.setDescription(updatedProduct.getDescription());
 
         productService.updateProduct(product);
 
@@ -105,22 +104,22 @@ public class ProductController {
 
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/category")
-    public PagedModel<EntityModel<Product>> getProductsByCategory(
-            @RequestParam(required = false, defaultValue = "all") int category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productsPage = productService.findProductsByCategory(category, pageable);
-        return pagedResourcesAssembler.toModel(productsPage);
-    }
-//    @GetMapping("/page")
-//    public Page<Product> getProductsByCategory(@RequestParam int category,
-//                                               @RequestParam(defaultValue = "0") int page,
-//                                               @RequestParam(defaultValue = "10") int size) {
+//    @GetMapping("/category")
+//    public PagedModel<EntityModel<Product>> getProductsByCategory(
+//            @RequestParam(required = false, defaultValue = "all") int category,
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size) {
 //        Pageable pageable = PageRequest.of(page, size);
-//        return productService.findProductsByCategory(category, pageable);
+//        Page<Product> productsPage = productService.findProductsByCategory(category, pageable);
+//        return pagedResourcesAssembler.toModel(productsPage);
 //    }
+    @GetMapping("/page")
+    public Page<Product> getProductsByCategory(@RequestParam int category,
+                                               @RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productService.findProductsByCategory(category, pageable);
+    }
 
     @GetMapping("/sorted/asc")
     public Page<Product> getAllProductsSortedByPriceAsc(@RequestParam(defaultValue = "0") int page,
